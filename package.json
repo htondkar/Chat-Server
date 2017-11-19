@@ -1,0 +1,32 @@
+{
+  "name": "chat-server",
+  "version": "0.0.1",
+  "description": "A real-time chat server based on nodejs and socket.io",
+  "main": "initialize.js",
+  "scripts": {
+    "start": "nodemon initialize.js",
+    "test": "test"
+  },
+  "keywords": [
+    "chat",
+    "node",
+    "socket"
+  ],
+  "author": "Hamid Tondkaran",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-validator": "^4.3.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.4",
+    "mongoose-beautiful-unique-validation": "^7.0.0",
+    "mongoose-mongodb-errors": "^0.0.2",
+    "nodemon": "^1.12.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "validator": "^9.1.1"
+  }
+}
