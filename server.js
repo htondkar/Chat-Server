@@ -1,9 +1,12 @@
 exports.start = function() {
   const app = require('./app')
 
-  app.set('port', process.env.PORT || 7777)
+  // start the websocket
+  var server = require('http').createServer(app)
+  var io = require('socket.io')(server)
 
-  const server = app.listen(app.get('port'), () => {
-    console.log(`Express running on → PORT ${server.address().port}`)
-  })
+  server.listen(process.env.PORT || 3333)
+  console.log(`Express running on → PORT ${server.address().port}`)
+
+  io.on('connection', () => console.log('started websocket connection'))
 }

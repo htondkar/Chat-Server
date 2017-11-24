@@ -12,6 +12,9 @@ const app = express()
 // Anything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, 'public')))
 
+// set the view engine
+app.set('view engine', 'pug')
+
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

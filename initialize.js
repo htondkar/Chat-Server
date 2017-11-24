@@ -4,7 +4,7 @@ require('./setupENV').setup()
 // connect to the DB
 require('./connectToDB').connect()
 
-// require models to make them available
+// require models to make them available globally
 require('./models/injector').inject()
 
 // start express app
