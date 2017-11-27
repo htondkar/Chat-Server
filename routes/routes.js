@@ -4,17 +4,6 @@ const authController = require('../controllers/authController')
 const handleError = require('../handlers/errorHandlers').catch
 const passport = require('passport')
 
-router.get('/', (req, res) => {
-  res.render('login')
-})
-
-router.get(
-  '/chat',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.render('main', { user: req.user })
-  }
-)
 
 router.post(
   '/sign-up',

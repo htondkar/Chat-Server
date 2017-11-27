@@ -12,9 +12,6 @@ const app = express()
 // Anything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, 'public')))
 
-// set the view engine
-app.set('view engine', 'pug')
-
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -27,11 +24,23 @@ app.use(expressValidator())
 configPassport.jwt(passport)
 app.use(passport.initialize())
 
+// allow CORS
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  next()
+})
+
+// do routing
 app.use('/', routes)
 
+// handle 404
 app.use(errorHandlers.notFound)
 
-// Otherwise this was a really bad error we didn't expect! Shoot eh
+// dev error handler
 if (app.get('env') === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors)
