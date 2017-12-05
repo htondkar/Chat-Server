@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const userController = require('../controllers/userController')
 const authController = require('../controllers/authController')
+const chatController = require('../controllers/chatController')
 const handleError = require('../handlers/errorHandlers').catch
 const passport = require('passport')
-
 
 router.post(
   '/sign-up',
@@ -18,11 +18,17 @@ router.post(
 )
 
 router.get(
-  '/protected-route',
+  '/users/list',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.json({ url: req.url, user: req.user })
-  }
+  handleError(userController.getAllUsers)
 )
+
+router.get(
+  '/chats/list',
+  passport.authenticate('jwt', { session: false }),
+  handleError(chatController.getUsersChats)
+)
+
+// create new chat session
 
 module.exports = router

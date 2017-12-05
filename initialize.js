@@ -8,4 +8,4 @@ require('./connectToDB').connect()
 require('./models/injector').inject()
 
 // start express app
-require('./server').start();
+const socket = require('./server').start()

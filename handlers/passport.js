@@ -11,7 +11,6 @@ exports.jwt = passport => {
   }
 
   const strategy = new JwtStrategy(opts, function(jwt_payload, done) {
-    console.log('payload received', jwt_payload)
     User.findOne({ _id: jwt_payload.id })
       .select('-password')
       .exec()

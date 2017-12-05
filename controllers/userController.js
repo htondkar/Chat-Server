@@ -19,6 +19,25 @@ exports.createUser = async (req, res) => {
   }
 }
 
+exports.getAllUsers = async (req, res) => {
+  const users = await User.find(null, { password: 0, __v: 0 })
+  if (users) {
+    res.json({
+      data: {
+        users
+      },
+      status: 200
+    })
+  } else {
+    res.json({
+      data: {
+        users: []
+      },
+      status: 200
+    })
+  }
+}
+
 exports.validate = (req, res, next) => {
   errors = runUserValidations(req)
   if (errors) errors.status = 400

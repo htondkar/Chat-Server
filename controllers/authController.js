@@ -27,7 +27,8 @@ exports.signIn = async (req, res, next) => {
 
     res.json({
       message: 'ok',
-      token: jwt.sign(payload, process.env.SECRET)
+      token: jwt.sign(payload, process.env.SECRET),
+      user: { name: user.name, id: user._id }
     })
   })
 }
