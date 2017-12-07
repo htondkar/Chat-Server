@@ -1,3 +1,7 @@
+const jsonWebToken = require('jsonwebtoken')
+
+const socketHandler = require('./socketHandlers/index')
+
 exports.start = function() {
   const app = require('./app')
 
@@ -8,16 +12,19 @@ exports.start = function() {
   const io = require('socket.io')(server)
 
   io.on('connection', socket => {
+    const { token } = socket.handshake.query
     console.log('new socket connection')
+
+    if (token) {
+      const { id } = jsonWebToken.decode(token)
+      socket.join(id)
+    }
 
     socket.on('disconnect', function() {
       console.log('user disconnected')
     })
 
-    socket.on('CREATE_NEW_CHAT', data => {
-      console.log('new chat request', data)
-      socket.emit('NEW_CHAT', { hello: 'world' })
-    })
+    socketHandler.use(socket, io)
   })
 
   io.listen(process.env.SOCKET_PORT || 3334)
